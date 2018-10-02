@@ -37,34 +37,38 @@ authRoutes.post('/signup', (req, res, next) => {
         password: hashPass,
         role: role
     });
-    console.log(aNewUser)
-    if(req.body.role !== 'Chef'){
-        console.log('_)_)_)_)_)_))__', req.body.role)
-        Company.findByIdAndUpdate(req.body.companyID, {$push:{ employees: aNewUser._id}})
-        .then((response) => {
-            console.log(' this is the respoonse after updating the company ><><><><><><><><><><', response)
-            res.json(response)
-        })
-        .catch((err) => {
-            res.json(err)
-        })
-    } else {
-        Company.create({
-            name: companyName,
-        })
-        .then((response) => {
-            console.log(' fuck off-==--=-=-=-=-=-', response)
-        })
+    User.create(aNewUser)
+    .then((response) => {
+        let userID = response._id;
+        if(req.body.role !== 'Chef'){
+            Company.findByIdAndUpdate(req.body.companyID, {$push:{ employees: aNewUser._id}})
             .then((response) => {
-                Company.findByIdAndUpdate(req.body.companyID, {$push:{ employee: response._id }})
+                res.json(response)
             })
             .catch((err) => {
                 res.json(err)
             })
-        .catch ((err) => {
-            res.json(err)
-        })
-    }
+        } else {
+           
+            Company.create({
+                name: companyName
+            })
+            .then((response) => {
+               ByIdAndUpdate(response._id, {$push:{employees: userID}})
+                response.employees.push(userID);
+                response.save()
+                .then(thisIsAResponse => {
+                    res.json(thisIsAResponse);
+                })
+                .catch(err => {
+                    res.json(err);
+                })
+            })
+            .catch ((err) => {
+                res.json(err)
+            })
+        }
+    })
 });
 });
 
