@@ -1,18 +1,53 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
+import {Switch, Route} from 'react-router-dom';
+import Signup from './components/auth/Signup';
+import Navbar from './components/Navbar';
+import AuthService from './components/auth/auth-services';
+import Login from './components/auth/Login';
+import RecipeList from './components/RecipeList';
+import AddRecipe from './components/AddRecipe';
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {loggedInUser: null};
+    this.service = new AuthService();
+  }
+
+  fetchUser(){
+    if( this.state.loggedInUser !== null ){
+      this.service.loggedin()
+      .then(response =>{
+        this.setState({
+          loggedInUser:  response.data
+        }) 
+      })
+      .catch( err =>{
+        this.setState({
+          loggedInUser:  false
+        }) 
+      })
+    }
+  }
+
+  getTheUser = (userObj) => {
+    this.setState({
+      loggedInUser: userObj
+    })
+  }
+
   render() {
+    this.fetchUser();
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+       <Navbar setTheUser={this.getTheUser} userInSession={this.state.loggedInUser} />
+       <Switch>
+        <Route exact path="/signup" render={() =><Signup setTheUser={this.getTheUser}/>}/>
+        <Route exact path='/' render={() => <Login setTheUser={this.getTheUser}/>}/>
+        <Route exact path="/recipes" component={RecipeList}/>
+        <Route path="/recipes/create" component={AddRecipe} />
+       </Switch>
       </div>
     );
   }

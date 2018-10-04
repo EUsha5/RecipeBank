@@ -9,7 +9,8 @@ authRoutes.post('/signup', (req, res, next) => {
   const username = req.body.username;
   const password = req.body.password;
   const companyName = req.body.name;
-  const role = req.body.role;
+  const firstName = req.body.first;
+  const lastName = req.body.last;
 
   if(!username || !password) {
     console.log(req.body)
@@ -35,7 +36,9 @@ authRoutes.post('/signup', (req, res, next) => {
     const aNewUser = new User({
         username:username,
         password: hashPass,
-        role: role
+        first: firstName,
+        last: lastName,
+        
     });
     User.create(aNewUser)
     .then((response) => {
@@ -49,24 +52,32 @@ authRoutes.post('/signup', (req, res, next) => {
                 res.json(err)
             })
         } else {
-           
-            Company.create({
-                name: companyName
-            })
-            .then((response) => {
-               ByIdAndUpdate(response._id, {$push:{employees: userID}})
-                response.employees.push(userID);
-                response.save()
-                .then(thisIsAResponse => {
-                    res.json(thisIsAResponse);
+           Company.findOne({name: req.body.name})
+           .then(companyFromDB => {
+               if(companyFromDB === null) {
+                Company.create({
+                    name: companyName
                 })
-                .catch(err => {
-                    res.json(err);
+                .then((response) => {
+                //    findByIdAndUpdate(response._id, {$push:{employees: userID}})
+                    response.employees.push(userID);
+                    response.save()
+                    .then(thisIsAResponse => {
+                        console.log("fuck you Uncle Fucker!! >>>>>>>>>>>>>>>>>> ", thisIsAResponse);
+                        res.json(thisIsAResponse);
+                    })
+                    .catch(err => {
+                        res.json(err);
+                    })
                 })
-            })
-            .catch ((err) => {
-                res.json(err)
-            })
+                .catch ((err) => {
+                    res.json(err)
+                })
+               } else {
+                   res.json({message: "Company name already in use pig fucker!"})
+               }
+           })
+            
         }
     })
 });

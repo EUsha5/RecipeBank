@@ -4,6 +4,8 @@ const Company    = require('./Company');
 
 const userSchema = new Schema ({
   username: String,
+  firstname: String,
+  lastname: String,
   password: String,
   role:  String,
   email: String,
