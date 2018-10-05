@@ -7,6 +7,8 @@ import AuthService from './components/auth/auth-services';
 import Login from './components/auth/Login';
 import RecipeList from './components/RecipeList';
 import AddRecipe from './components/AddRecipe';
+import RecipeDetails from './components/RecipeDetails';
+
 
 class App extends Component {
   constructor(props) {
@@ -16,11 +18,11 @@ class App extends Component {
   }
 
   fetchUser(){
-    if( this.state.loggedInUser !== null ){
+    if( this.state.loggedInUser === null ){
       this.service.loggedin()
       .then(response =>{
         this.setState({
-          loggedInUser:  response.data
+          loggedInUser:  response
         }) 
       })
       .catch( err =>{
@@ -46,7 +48,8 @@ class App extends Component {
         <Route exact path="/signup" render={() =><Signup setTheUser={this.getTheUser}/>}/>
         <Route exact path='/' render={() => <Login setTheUser={this.getTheUser}/>}/>
         <Route exact path="/recipes" component={RecipeList}/>
-        <Route path="/recipes/create" component={AddRecipe} />
+        <Route exact path="/recipes/:id" component={RecipeDetails} />
+        {/* <Route exact path="/recipes/create" component={AddRecipe} /> */}
        </Switch>
       </div>
     );

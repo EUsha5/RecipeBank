@@ -5,7 +5,7 @@ const User       = require("./User");
 
 
 const companySchema = new Schema ({
-  name: String,
+  companyName: String,
   admin: String,
   recipes: [{type: Schema.Types.ObjectId, ref:"Recipe"}],
   employees: [{type: Schema.Types.ObjectId, ref: "User"}],

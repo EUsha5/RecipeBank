@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
-// import AddRecipe from './AddRecipe';
+import AddRecipe from './AddRecipe';
 
 
 class RecipeList extends Component {
@@ -35,17 +35,17 @@ class RecipeList extends Component {
             return (
               <div key={recipe._id}>
                 <Link to={`/recipes/${recipe._id}`}>
-                  <h3>{recipe.name}</h3>
+                  {recipe.name}
                 </Link>
               </div>
             )})
           }
         </div>
         <div>
-        <Link to='/recipes/create'>
+        <Link  to='/recipes/create'>
                 <button>Add Recipe</button>
               </Link>
-            {/* <AddRecipe getData={() => this.getAllRecipes()}/> */}
+            <AddRecipe getData={() => this.getAllRecipes()}/>
         </div>
       </div>
     )

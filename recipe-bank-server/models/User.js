@@ -7,9 +7,9 @@ const userSchema = new Schema ({
   firstname: String,
   lastname: String,
   password: String,
-  role:  String,
+  role:  [String, {default: 'Chef'}],
   email: String,
-  company: {type: Schema.Types.ObjectId, ref: "Company"},
+  companyName: String //{type: Schema.Types.ObjectId, ref: "Company"},
 },
 {timestamp: true}
 );

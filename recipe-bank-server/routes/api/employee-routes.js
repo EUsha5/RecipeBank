@@ -14,7 +14,7 @@ router.get('/employees', (req, res, next) => {
   })
 });
 
-// PUT route => to update a specific recipe
+// PUT route => to update a specific employee
 router.put('/employees/:id', (req, res, next)=>{
   if(!mongoose.Types.ObjectId.isValid(req.params.id)) {
     res.status(400).json({ message: 'Specified id is not valid' });

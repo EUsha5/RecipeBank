@@ -6,21 +6,23 @@ const mongoose = require('mongoose');
 
 
 router.post('/recipes/create', (req, res, next) => {
-  Recipes.create({
-    name : req.body.name,
-    image : req.body.image,
-    preptime : req.body.preptime,
-    ingrediants : req.body.ingrediants,
-    instruction: req.body.instruction,
-    author: req.user._id,
-  })
-  .then (response => {
-    res.json(response);
-    console.log(response);
-  })
-  .catch(err => {
-    res.json(err);
-  })
+  if(req.user.role === "Chef" || "Sous"){
+    Recipes.create({
+      name : req.body.name,
+      image : req.body.image,
+      preptime : req.body.preptime,
+      ingrediants : req.body.ingrediants,
+      instruction: req.body.instruction,
+      author: req.user._id,
+    })
+    .then (response => {
+      res.json(response);
+      console.log(response);
+    })
+    .catch(err => {
+      res.json(err);
+    })
+  }
 });
 
 
@@ -53,6 +55,7 @@ router.get('/recipes/:id', (req, res, next)=>{
 
 // PUT route => to update a specific recipe
 router.put('/recipes/:id', (req, res, next)=>{
+  if(req.user.role === "Chef" || "Sous"){
   if(!mongoose.Types.ObjectId.isValid(req.params.id)) {
     res.status(400).json({ message: 'Specified id is not valid' });
     return;
@@ -64,9 +67,11 @@ router.put('/recipes/:id', (req, res, next)=>{
     .catch(err => {
       res.json(err);
     })
+  }
 });
 
-router.delete('/recipes/:id', (req, res, next)=>{ 
+router.delete('/recipes/:id', (req, res, next)=>{
+  if(req.user.role === "Chef"){
   if(!mongoose.Types.ObjectId.isValid(req.params.id)) {
     res.status(400).json({ message: 'Specified id is not valid' });
     return;
@@ -78,6 +83,7 @@ router.delete('/recipes/:id', (req, res, next)=>{
     .catch( err => {
       res.json(err);
     })
+  }
 })
 
 

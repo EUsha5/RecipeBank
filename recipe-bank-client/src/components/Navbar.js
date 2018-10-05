@@ -13,7 +13,7 @@ class Navbar extends Component {
   }
   
   componentWillReceiveProps(nextProps) {
-    this.setState({loggedInUser: nextProps["userInSession"]})
+    this.setState({...this.state, loggedInUser: nextProps["userInSession"]})
   }
 
 
