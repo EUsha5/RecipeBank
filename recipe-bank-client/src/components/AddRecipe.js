@@ -16,8 +16,8 @@ class AddRecipe extends Component {
 
   handleFormSubmit = (event) => {
     event.preventDefault();
-    const {name, instructions, ingrediants, image, preptime} = this.state;
-    axios.post("http://localhost:5000/api/recipes/create", {name, instructions, image, ingrediants, preptime}, {withCredentials:true})
+    const {name,instructions, ingrediants, image, preptime} = this.state;
+    axios.post("http://localhost:5000/api/recipes/create", {name,instructions, image, ingrediants, preptime}, {withCredentials:true})
     .then(() => {
       this.props.getData();
       this.setState({
@@ -45,10 +45,10 @@ class AddRecipe extends Component {
           <label>Name:</label>
           <input type="text" name="name" value={this.state.name} onChange={e => this.handleChange(e)}/>
           <label>Instructions:</label>
-          <textarea name="instructions" value={this.state.instructions} onChange={e => this.handleChange(e)} />
+          <textarea name="instructions" value={this.state.instructions} onChange={e => this.handleChange(e)}></textarea>
           <label>Ingrediants:</label>
-          <textarea name="ingrediants" value={this.state.ingrediants} onChange={e => this.handleChange(e)} />
-          <label>PrepTime:</label>
+          <textarea name="ingrediants" value={this.state.ingrediants} onChange={e => this.handleChange(e)}></textarea>
+          <label>Preptime:</label>
           <input type="number" name="preptime" value={this.state.preptime} onChange={e => this.handleChange(e)} />
           <label>Image:</label>
           <input type="text" name="image" value={this.state.image} onChange={e => this.handleChange(e)} />

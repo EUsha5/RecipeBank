@@ -6,7 +6,7 @@ import Navbar from './components/Navbar';
 import AuthService from './components/auth/auth-services';
 import Login from './components/auth/Login';
 import RecipeList from './components/RecipeList';
-import AddRecipe from './components/AddRecipe';
+// import AddRecipe from './components/AddRecipe';
 import RecipeDetails from './components/RecipeDetails';
 
 

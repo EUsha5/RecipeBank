@@ -29,4 +29,20 @@ router.put('/employees/:id', (req, res, next)=>{
     })
 });
 
+router.delete('/employees/:id', (req, res, next)=>{
+  // if(req.user.role === "Chef"){
+  if(!mongoose.Types.ObjectId.isValid(req.params.id)) {
+    res.status(400).json({ message: 'Specified id is not valid' });
+    return;
+  }
+  User.findByIdAndRemove(req.params.id)
+    .then(() => {
+      res.json({message: `Employee with ${req.params.id} is removed successfully.`});
+    })
+    .catch( err => {
+      res.json(err);
+    })
+  // }
+})
+
 module.export = router;

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import EditRecipe from './EditRecipe';
 // import { Link } from 'react-router-dom';
 
 class RecipeDetails extends Component {
@@ -27,6 +28,14 @@ class RecipeDetails extends Component {
     })
   }
 
+  renderEditForm = () => {
+    if(!this.state.name){
+      this.getSingleRecipe();
+    } else {
+      return <EditRecipe theRecipe={this.state} getRecipe={this.getSingleRecipe} {...this.props} />
+    }
+  }
+
   deleteRecipe = () => {
     const {params} = this.props.match;
     axios.delete(`http://localhost:5000/api/recipes/${params.id}`, {withCredentials: true})
@@ -43,11 +52,19 @@ class RecipeDetails extends Component {
     console.log('_=_=_=_=_=_=_=', this.state)
     return(
       <div>
-        <h2> The Blah </h2>
-        <h1>{this.state.name}</h1>
-        <p>{this.state.ingrediants}</p>
-        <p>{this.state.instructions}</p>
         <button onClick={() => this.deleteRecipe()}>Delete Recipe</button>
+        <h1>{this.state.name}</h1>
+        <ul>
+          <li>
+          {this.state.ingrediants}
+          </li>
+        </ul>
+        <h2>{this.state.instructions}</h2>
+        <p>Preptime:{this.state.preptime}min</p>
+        <hr />
+
+        {this.renderEditForm()}
+        
 
       </div>
     )
