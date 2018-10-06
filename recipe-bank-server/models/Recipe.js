@@ -5,7 +5,7 @@ const User       = require("./User");
 
 const recipeSchema = new Schema ({
   name: String,
-  ingrediants: String,
+  ingrediants: Array,
   instructions: String,
   image: String,
   preptime: Number,

@@ -12,12 +12,16 @@ class Login extends Component {
   }
 
   handleFormSubmit = (event) => {
+    console.log("submitting form data for user log in <<<<<<<<<<<<<<<<<<<<");
     event.preventDefault();
     const username = this.state.username;
     const password = this.state.password;
   
     this.service.login(username, password)
     .then( response => {
+      console.log(response);
+      console.log('********************', this.state.password);
+      console.log("the response after logging in ^^^^^^^^^^^^^^^^^^^^^^^ ", response);
         this.setState({
             username: "", 
             password: "",

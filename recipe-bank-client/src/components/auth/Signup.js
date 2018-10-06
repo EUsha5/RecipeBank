@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 class Signup extends Component {
   constructor(props) {
     super(props);
-    this.state = {username: '', password: '', firstname: '', lastname: '', companyName:''};
+    this.state = {username: '', password: '', firstname: '', lastname: '', company:''};
     this.service = new AuthService();
   }
   handleFormSubmit = (event) => {
@@ -14,16 +14,16 @@ class Signup extends Component {
     const password = this.state.password;
     const firstname = this.state.firstname;
     const lastname = this.state.lastname;
-    const companyName = this.state.companyName;
+    const company = this.state.company;
 
-    this.service.signup(username, password, firstname, lastname,companyName)
+    this.service.signup(username, password, firstname, lastname, company)
     .then( theUser => {
       this.setState({
         username: "", 
         password: "",
         firstname: "",
         lastname: "",
-        companyName:""
+        company:""
       });
       this.props.setTheUser(theUser)
       // console.log('-=-=-=-=-=-=-=-', req)
@@ -58,7 +58,7 @@ class Signup extends Component {
           <select value="Chef Sous Cook" name="role" /> */}
 
           <label>Company:</label>
-          <input type="text" name="companyName" value={this.state.companyName} onChange={e => this.handleChange(e)} />
+          <input type="text" name="company" value={this.state.company} onChange={e => this.handleChange(e)} />
           
           <input type="submit" value="Signup" />
         </form>

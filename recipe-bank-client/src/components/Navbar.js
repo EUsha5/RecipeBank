@@ -30,8 +30,11 @@ class Navbar extends Component {
       return(
         <nav className="navbar-logout">
           <ul>
-            <li>Welcome, {this.state.loggedInUser.username}</li>
+            <li>Welcome, {this.state.loggedInUser.firstname}</li>
+            <li>{this.state.loggedInUser.company}</li>
             <li><Link to='/recipes'>Recipes</Link></li>
+            <li><Link to='/employees'>Employees</Link></li>
+
             <li>
               <Link to='/'>
                 <button onClick={() => this.logoutUser()}>Logout</button>

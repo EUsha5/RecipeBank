@@ -8,6 +8,7 @@ import Login from './components/auth/Login';
 import RecipeList from './components/RecipeList';
 // import AddRecipe from './components/AddRecipe';
 import RecipeDetails from './components/RecipeDetails';
+import EmployeeList from './components/EmployeeList';
 
 
 class App extends Component {
@@ -49,6 +50,7 @@ class App extends Component {
         <Route exact path='/' render={() => <Login setTheUser={this.getTheUser}/>}/>
         <Route exact path="/recipes" component={RecipeList}/>
         <Route exact path="/recipes/:id" component={RecipeDetails} />
+        <Route exact path="/employees" component={EmployeeList} />
         {/* <Route exact path="/recipes/create" component={AddRecipe} /> */}
        </Switch>
       </div>

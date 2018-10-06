@@ -13,9 +13,9 @@ const passport     = require('passport');
 const cors         = require('cors');
 
 require('./config/passport');
-
+mongoose.Promise = Promise;
 mongoose
-  .connect('mongodb://localhost/recipe-bank-server', {useNewUrlParser: true})
+  .connect('mongodb://localhost/recipe-bank', { useNewUrlParser: true })
   .then(x => {
     console.log(`Connected to Mongo! Database name: "${x.connections[0].name}"`)
   })
@@ -77,6 +77,9 @@ app.use('/api', authRoutes);
 
 const recipeRoutes = require('./routes/api/recipe-routes');
 app.use('/api', recipeRoutes);
+
+const employeeRoutes = require('./routes/api/employee-routes');
+app.use('/api', employeeRoutes);
 
 
 

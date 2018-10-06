@@ -2,11 +2,14 @@ const express = require('express');
 const User  = require('../../models/User');
 const router = express.Router();
 const mongoose = require('mongoose');
+const Company = require('../../models/Company');
 
 
 router.get('/employees', (req, res, next) => {
-  User.find()
+  var theEmployeesArray = []
+  Company.find().populate('employees')
   .then(allTheEmployees => {
+    console.log("uncle fucker !!!!!!!!!!!!!!!!!!!!!!!!!!! ", allTheEmployees[0].employees);
     res.json(allTheEmployees);
   })
   .catch(err => {
@@ -45,4 +48,4 @@ router.delete('/employees/:id', (req, res, next)=>{
   // }
 })
 
-module.export = router;
+module.exports = router;
